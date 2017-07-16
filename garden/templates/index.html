@@ -1,0 +1,39 @@
+<doctype html>
+<html>
+    <head>
+        <style>
+            body {
+                font-family: Arial;
+            }
+
+            .flex {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .plant {
+                margin: 10px;
+                padding: 10px;
+                border-radius: 3px;
+                background-color: #333;
+                color: #fff;
+                flex: 1 1 200px;
+            }
+
+            .plant img {
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex">        
+        {% for plant in flora %}
+            <div class="plant">
+                <h1>{{ plant.binomial }}</h1>
+                <img src="{{ plant.image }}">
+            </div>
+        {% endfor %}
+        </div>
+    </body>
+</html>
