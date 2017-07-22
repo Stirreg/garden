@@ -1,63 +1,14 @@
-<doctype html>
-<html>
-    <head>
-        <style>
-            @import url('https://fonts.googleapis.com/css?family=Zilla+Slab');
-
-            body {
-                font-family: 'Zilla Slab', serif;
-                color: #333;
-            }
-
-            h1 {
-                margin: 0 0 20px;
-                font-size: 1.6em;
-                font-weight: normal;
-            }
-
-            .flex {
-                display: flex;
-                flex-wrap: wrap;
-            }
-
-            .plant {
-                margin: 5px;
-                padding: 10px;
-                border-radius: 3px;
-                background-color: #E5E5E5;
-                flex: 1 1 220px;
-                overflow: hidden;
-            }
-
-            .plant:hover {
-                background-color: #03323F;
-                cursor: pointer;
-                color: #FFF;
-            }
-
-            .plant a {
-                color: #333;
-                text-decoration: none;
-            }
-
-            .plant:hover a {
-                color: #FFF;
-            }
-
-            .plant img {
-                width: 100%;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex">        
-        {% for plant in flora %}
-            <div class="plant">
-                <h1><a href="{{ url_for('plant_page', binomial=plant.binomial) }}">{{ plant.name }}</a></h1>
-            </div>
-        {% endfor %}
+{% extends "layout.html" %}
+{% block body %}
+    <div class="flex">
+    {% for plant in flora %}
+        <div class="plant">
+            <h1><a href="{{ url_for('plant_page', binomial=plant.binomial) }}">{{ plant.name }}</a></h1>
         </div>
-    </body>
+    {% endfor %}
+    </div>
+{% endblock %}
+{% block scripts %}
     <script>
         Array.from(document.getElementsByClassName('plant')).forEach(function(plant) {
             let link = plant.getElementsByTagName('a')[0].href;
@@ -66,4 +17,4 @@
             });
         });
     </script>
-</html>
+{% endblock %}
