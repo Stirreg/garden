@@ -1,1 +1,6 @@
 __pycache__
+bin
+lib
+include
+pip-selfcheck.json
+*.py[cod]
