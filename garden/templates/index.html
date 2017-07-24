@@ -1,11 +1,23 @@
 {% extends "layout.html" %}
 {% block body %}
     <div class="flex">
-    {% for plant in flora %}
-        <div class="plant">
-            <h1><a href="{{ url_for('plant_page', binomial=plant.binomial) }}">{{ plant.name }}</a></h1>
+        <div id="create-plant" class="plant">
+            <h1><a href="{{ url_for('create_plant_page') }}">New plant</a></h1>
         </div>
-    {% endfor %}
+        {% for plant in flora %}
+        <div id="{{ plant.binomial }}" class="plant">
+            <h1><a href="{{ url_for('plant_page', binomial=plant.binomial) }}">{{ plant.names[0] }}</a></h1>
+            <ul>
+                <li>{{ plant.binomial }}</li>
+                {% if plant.names %}
+                <li>Namen: {{ plant.names|join(', ') }}</li>
+                {% endif %}
+                {% if plant.cultivars %}
+                <li>Cultivars: {{ plant.cultivars|join(', ') }}</li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endfor %}
     </div>
 {% endblock %}
 {% block scripts %}

@@ -7,5 +7,6 @@ setup(
     install_requires=[
         'flask',
         'flask_pymongo',
+        'flask_wtf'
     ],
 )

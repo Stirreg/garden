@@ -1,14 +1,32 @@
-@import url('https://fonts.googleapis.com/css?family=Zilla+Slab');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Zilla+Slab');
 
 body {
-    font-family: 'Zilla Slab', serif;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1em;
+    line-height: 1.6em;
     color: #333;
 }
 
 h1 {
-    margin: 0 0 20px;
+    font-family: 'Zilla Slab', serif;
+    margin: 0 0 0.8em;
     font-size: 1.6em;
     font-weight: normal;
+}
+
+table {
+    border: 1px solid #CCC;
+    border-width: 0 1px 1px 0;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    padding: 0.5em;
+    border: 1px solid #CCC;
+    border-width: 1px 0 0 1px;
+    text-align: left;
+    background: #E5E5E5;
 }
 
 .flex {
@@ -21,12 +39,11 @@ h1 {
     padding: 10px;
     border-radius: 3px;
     background-color: #E5E5E5;
-    flex: 1 1 220px;
+    flex: 1 1 300px;
     overflow: hidden;
 }
 
-.plant:hover,
-.plant:focus {
+.plant:hover {
     background-color: #03323F;
     cursor: pointer;
     color: #FFF;
