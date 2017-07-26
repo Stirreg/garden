@@ -1,35 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Zilla+Slab');
 
+html {
+    font-size: 16px;
+}
+
 body {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 1em;
-    line-height: 1.6em;
     color: #333;
 }
 
-h1 {
+h1, h2, h3 {
     font-family: 'Zilla Slab', serif;
-    margin: 0 0 0.8em;
-    font-size: 1.6em;
     font-weight: normal;
 }
 
-table {
-    border: 1px solid #CCC;
-    border-width: 0 1px 1px 0;
-    border-collapse: collapse;
-}
-
-table th,
-table td {
-    padding: 0.5em;
-    border: 1px solid #CCC;
-    border-width: 1px 0 0 1px;
-    text-align: left;
-    background: #E5E5E5;
-}
-
 .flex {
+    margin: 5px;
     display: flex;
     flex-wrap: wrap;
 }
@@ -39,7 +25,7 @@ table td {
     padding: 10px;
     border-radius: 3px;
     background-color: #E5E5E5;
-    flex: 1 1 300px;
+    flex: 1 1 20rem;
     overflow: hidden;
 }
 
@@ -47,6 +33,11 @@ table td {
     background-color: #03323F;
     cursor: pointer;
     color: #FFF;
+}
+
+.plant h1 {
+    margin: 0 0 10px;
+    font-size: 2.2em;
 }
 
 .plant a {

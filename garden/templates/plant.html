@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 {% block body %}
-<a href="{{ url_for('home_page') }}">Back</a>
-<h1>{{ plant.name if plant else 'New plant' }}</h1>
+<a class="button" href="{{ url_for('home_page') }}">Back</a>
+<h1 class="h1">{{ plant.names[0] if plant else 'New plant' }}</h1>
 <form action="{{ url_for('plant_page', binomial=plant.binomial) if plant else url_for('create_plant_page') }}" method="post">
+    {{ form.csrf_token }}
     <label>
         Binomial
         <input name="binomial" type="text" value="{{ plant.binomial if plant else '' }}">
@@ -15,9 +16,9 @@
         Cultivars
         <input name="cultivars" type="text" value="{{ plant.cultivars|join(', ') if plant and plant.names else '' }}">
     </label>
-    <button type="submit">Save</button>
+    <button class="button" type="submit">Save</button>
 </form>
 {% if plant %}
-<a href="{{ url_for('delete_plant', binomial=plant.binomial) }}">Delete</a>
+<a class="button" href="{{ url_for('delete_plant', binomial=plant.binomial) }}">Delete</a>
 {% endif %}
 {% endblock %}
