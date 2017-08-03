@@ -2,7 +2,7 @@
 {% block body %}
 <a class="button" href="{{ url_for('home_page') }}">Back</a>
 <h1 class="h1">{{ plant.names[0] if plant else 'New plant' }}</h1>
-<form action="{{ url_for('plant_page', binomial=plant.binomial) if plant else url_for('create_plant_page') }}" method="post">
+<form action="{{ url_for('plant_page', binomial=plant.binomial) if plant else url_for('create_plant_page') }}" method="post" enctype="multipart/form-data">
     {{ form.csrf_token }}
     <label>
         Binomial
@@ -15,6 +15,13 @@
     <label>
         Cultivars
         <input name="cultivars" type="text" value="{{ plant.cultivars|join(', ') if plant and plant.names else '' }}">
+    </label>
+    {% if plant.image %}
+    <img src="data:image/jpg;base64,{{plant.image | b64encode}}">
+    {% endif %}
+    <label>
+        Image
+        <input name="image" type="file">
     </label>
     <button class="button" type="submit">Save</button>
 </form>

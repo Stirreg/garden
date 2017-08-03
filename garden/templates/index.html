@@ -16,6 +16,9 @@
                 <li>Cultivars: {{ plant.cultivars|join(', ') }}</li>
                 {% endif %}
             </ul>
+            {% if plant.image %}
+            <img src="data:image/jpg;base64,{{ plant.image|b64encode }}">
+            {% endif %}
         </div>
         {% endfor %}
     </div>

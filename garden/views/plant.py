@@ -1,8 +1,10 @@
 """Garden module."""
 from garden import app
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, abort
 from flask_pymongo import PyMongo
 from garden.forms.plant import PlantForm
+from bson import Binary
+import base64
 
 # TODO: Refactor EVERYTHING!
 
@@ -17,12 +19,19 @@ app.secret_key = 'very-secret-key'
 #        self.names = names
 #        self.cultivars = cultivars
 
+
+@app.template_filter('b64encode')
+def b64encode(string):
+    return base64.b64encode(string).decode('utf-8')
+
+
 @app.route('/')
 def home_page():
     """Plant page view method."""
     flora = mongo.db.flora.find().sort('names', 1)
 
     return render_template('index.html', flora=flora)
+
 
 @app.route('/plant/<binomial>', methods=('GET', 'POST', 'DELETE'))
 def plant_page(binomial):
@@ -32,16 +41,27 @@ def plant_page(binomial):
         data = {}
         data['binomial'] = form.binomial.data
         data['names'] = form.names.data.split(', ')
+
         if form.cultivars.data:
             data['cultivars'] = form.cultivars.data.split(', ')
 
-        mongo.db.flora.update_one({'binomial': data['binomial']}, {'$set': data})
+        if form.image.data:
+            data['image'] = Binary(form.image.data.read())
+
+        mongo.db.flora.update_one(
+            {'binomial': data['binomial']},
+            {'$set': data}
+        )
 
         return redirect(url_for('home_page') + '#' + data['binomial'])
 
     plant = mongo.db.flora.find_one({'binomial': binomial})
 
+    if not plant:
+        abort(404)
+
     return render_template('plant.html', plant=plant, form=form)
+
 
 @app.route('/plant', methods=('GET', 'POST'))
 def create_plant_page():
@@ -59,6 +79,7 @@ def create_plant_page():
         return redirect(url_for('home_page') + '#' + data['binomial'])
 
     return render_template('plant.html', form=form)
+
 
 @app.route('/plant/delete/<binomial>')
 def delete_plant(binomial):
