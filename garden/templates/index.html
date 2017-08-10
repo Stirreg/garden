@@ -1,12 +1,15 @@
 {% extends "layout.html" %}
 {% block body %}
     <div class="flex">
-        <div id="create-plant" class="plant">
-            <h1><a href="{{ url_for('create_plant_page') }}">New plant</a></h1>
+        <div id="create-plant" class="flex__item flex__item--clickable">
+            <h1 class="h"><a href="{{ url_for('create_plant_page') }}">New plant</a></h1>
         </div>
         {% for plant in flora %}
-        <div id="{{ plant.binomial }}" class="plant">
-            <h1><a href="{{ url_for('plant_page', binomial=plant.binomial) }}">{{ plant.names[0] }}</a></h1>
+        <div id="{{ plant.binomial }}" class="flex__item flex__item--clickable">
+            <h1 class="h"><a href="{{ url_for('plant_page', binomial=plant.binomial) }}">{{ plant.names[0] }}</a></h1>
+            {% if plant.image %}
+            <img src="data:image/jpg;base64,{{ plant.image|b64encode }}">
+            {% endif %}
             <ul>
                 <li>{{ plant.binomial }}</li>
                 {% if plant.names %}
@@ -16,16 +19,13 @@
                 <li>Cultivars: {{ plant.cultivars|join(', ') }}</li>
                 {% endif %}
             </ul>
-            {% if plant.image %}
-            <img src="data:image/jpg;base64,{{ plant.image|b64encode }}">
-            {% endif %}
         </div>
         {% endfor %}
     </div>
 {% endblock %}
 {% block scripts %}
     <script>
-        Array.from(document.getElementsByClassName('plant')).forEach(function(plant) {
+        Array.from(document.getElementsByClassName('flex__item--clickable')).forEach(function(plant) {
             let link = plant.getElementsByTagName('a')[0].href;
             plant.addEventListener('click', function() {
                 window.location.href = link;

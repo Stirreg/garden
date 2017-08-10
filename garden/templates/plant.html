@@ -1,31 +1,47 @@
 {% extends "layout.html" %}
 {% block body %}
 <a class="button" href="{{ url_for('home_page') }}">Back</a>
-<h1 class="h1">{{ plant.names[0] if plant else 'New plant' }}</h1>
-<form action="{{ url_for('plant_page', binomial=plant.binomial) if plant else url_for('create_plant_page') }}" method="post" enctype="multipart/form-data">
+<h1 class="h">{{ plant.names[0] if plant else 'New plant' }}</h1>
+<form class="form" action="{{ url_for('plant_page', binomial=plant.binomial) if plant else url_for('create_plant_page') }}" method="post" enctype="multipart/form-data">
     {{ form.csrf_token }}
-    <label>
-        Binomial
-        <input name="binomial" type="text" value="{{ plant.binomial if plant else '' }}">
-    </label>
-    <label>
-        Names
-        <input name="names" type="text" value="{{ plant.names|join(', ') if plant and plant.names else '' }}">
-    </label>
-    <label>
-        Cultivars
-        <input name="cultivars" type="text" value="{{ plant.cultivars|join(', ') if plant and plant.names else '' }}">
-    </label>
-    {% if plant.image %}
-    <img src="data:image/jpg;base64,{{plant.image | b64encode}}">
+    <div class="form__row">
+        <label class="form__label">Binomial</label>
+        <input class="form__input" name="binomial" type="text" value="{{ plant.binomial if plant else '' }}">
+    </div>
+    <div class="form__row">
+        <label class="form__label">Names</label>
+        <input class="form__input" name="names" type="text" value="{{ plant.names|join(', ') if plant and plant.names else '' }}">
+    </div>
+    <div class="form__row">
+        <label class="form__label">Cultivars</label>
+        <input class="form__input" name="cultivars" type="text" value="{{ plant.cultivars|join(', ') if plant and plant.names else '' }}">
+    </div>
+    <div class="form__row">
+        <label class="form__label">Image</label>
+        <input class="form__input" name="image" type="file">
+    </div>
+    {% if plant is defined and plant.image %}
+    <div class="form__row">
+        <img src="data:image/jpg;base64,{{plant.image | b64encode}}" width="220">
+    </div>
     {% endif %}
-    <label>
-        Image
-        <input name="image" type="file">
-    </label>
-    <button class="button" type="submit">Save</button>
+    <div class="form__row">
+        <button class="button" type="submit">Save</button>
+        {% if plant %}
+        <a class="button js-delete-button" href="{{ url_for('delete_plant', binomial=plant.binomial) }}">Delete</a>
+        {% endif %}
+    </div>
 </form>
-{% if plant %}
-<a class="button" href="{{ url_for('delete_plant', binomial=plant.binomial) }}">Delete</a>
-{% endif %}
+{% endblock %}
+{% block scripts %}
+    <script>
+        Array.from(document.getElementsByClassName('js-delete-button')).forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (window.confirm("Do you really want to delete this plant?")) {
+                    window.location.href = button.href;
+                }
+            });
+        });
+    </script>
 {% endblock %}

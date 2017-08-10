@@ -2,6 +2,11 @@
 
 html {
     font-size: 16px;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
 }
 
 body {
@@ -9,7 +14,7 @@ body {
     color: #333;
 }
 
-h1, h2, h3 {
+.h {
     font-family: 'Zilla Slab', serif;
     font-weight: normal;
 }
@@ -20,7 +25,7 @@ h1, h2, h3 {
     flex-wrap: wrap;
 }
 
-.plant {
+.flex__item {
     margin: 5px;
     padding: 10px;
     border-radius: 3px;
@@ -29,26 +34,39 @@ h1, h2, h3 {
     overflow: hidden;
 }
 
-.plant:hover {
+.flex__item h1 {
+    margin: 0 0 10px;
+    font-size: 2.2em;
+}
+
+.flex__item a {
+    color: #333;
+    text-decoration: none;
+}
+
+.flex__item img {
+    width: 100%;
+}
+
+.flex__item--clickable:hover {
     background-color: #03323F;
     cursor: pointer;
     color: #FFF;
 }
 
-.plant h1 {
-    margin: 0 0 10px;
-    font-size: 2.2em;
-}
-
-.plant a {
-    color: #333;
-    text-decoration: none;
-}
-
-.plant:hover a {
+.flex__item--clickable:hover a {
     color: #FFF;
 }
 
-.plant img {
+.form__row {
+    margin: 0 0 1em 0;
+}
+
+.form__label {
+    display: block;
+}
+
+.form__input {
+    display: block;
     width: 100%;
 }
