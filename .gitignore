@@ -1,7 +1,8 @@
 __pycache__
 bin
-lib
+dist
 include
+lib
 pip-selfcheck.json
 *.py[cod]
 *.egg-info
