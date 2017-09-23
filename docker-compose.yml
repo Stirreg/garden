@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   garden:
-    image: python:latest
+    build: .
     links:
       - mongodb:mongodb
     volumes:
