@@ -1,0 +1,13 @@
+uwsgi:
+    module: garden:app
+
+    master: true
+    processes: 5
+
+    #socket: garden.socket
+    socket: 0.0.0.0:3031
+    #protocol: http
+    #chmod-socket: 660
+    vacuum: true
+
+    die-on-term: true
