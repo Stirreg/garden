@@ -8,6 +8,7 @@ services:
       - .:/usr/src/garden
     expose:
       - "3031"
+    command: uwsgi --yml uwsgi.yml
     tty: true
   nginx:
     image: nginx:latest

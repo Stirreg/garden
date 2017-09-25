@@ -1,9 +1,6 @@
 __pycache__
 .vscode
-bin
-dist
-include
-lib
+venv
 pip-selfcheck.json
 *.py[cod]
 *.egg-info
