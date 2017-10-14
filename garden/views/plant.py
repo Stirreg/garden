@@ -1,20 +1,14 @@
 """Garden module."""
 import base64
-from garden import app
 from bson import Binary
-from flask_pymongo import PyMongo
 from garden.models.plant import Plant
 from garden.forms.plant import PlantForm
-from garden.repositories.plant import PlantRepository
+from garden import app, mongo, plant_repository
 from flask import Flask, render_template, request, redirect, url_for, abort
 
-# TODO: Refactor EVERYTHING!
-
-mongo = PyMongo(app)
+# TODO: More dependency injection plz.
 
 app.secret_key = 'very-secret-key'
-
-plantRepository = PlantRepository(mongo)
 
 @app.template_filter('b64encode')
 def b64encode(string):
@@ -24,7 +18,7 @@ def b64encode(string):
 @app.route('/')
 def home_page():
     """Plant page view method."""
-    flora = mongo.db.flora.find().sort('names', 1)
+    flora = plant_repository.get_all()
 
     return render_template('index.html', flora=flora)
 
@@ -47,16 +41,16 @@ def plant_page(binomial):
             names=form.names.data.split(', ')
         )
 
-        plantRepository.save(plant)
+        plant_repository.save(plant)
 
         return redirect(url_for('home_page') + '#' + plant.binomial)
 
-    plant = plantRepository.get(binomial)
+    plant = plant_repository.get_one_by_binomial(binomial)
 
     if not plant:
         abort(404)
 
-    return render_template('plant.html', plant=plant.__dict__, form=form)
+    return render_template('plant.html', plant=plant, form=form)
 
 
 @app.route('/plant', methods=('GET', 'POST'))
@@ -74,7 +68,7 @@ def create_plant_page():
             names=form.names.data.split(', ')
         )
 
-        plantRepository.save(plant)
+        plant_repository.save(plant)
 
         return redirect(url_for('home_page') + '#' + plant.binomial)
 
@@ -84,6 +78,6 @@ def create_plant_page():
 @app.route('/plant/delete/<binomial>')
 def delete_plant(binomial):
     """Delete plant method."""
-    mongo.db.flora.delete_one({'binomial': binomial})
+    plant_repository.delete_one_by_binomial(binomial=binomial)
 
     return redirect(url_for('home_page'))
