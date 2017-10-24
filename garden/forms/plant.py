@@ -1,3 +1,4 @@
+"""Garden plant form module."""
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, validators

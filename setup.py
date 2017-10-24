@@ -7,6 +7,7 @@ setup(
     install_requires=[
         'Flask',
         'Flask-WTF',
-        'Flask_PyMongo'
+        'Flask_PyMongo',
+        'uWSGI'
     ],
 )
