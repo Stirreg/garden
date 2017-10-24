@@ -24,4 +24,4 @@ def b64encode(string):
     return base64.b64encode(string).decode('utf-8')
 
 
-import garden.views.plant
+import garden.views.plant  # noqa: E402, F401
