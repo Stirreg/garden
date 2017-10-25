@@ -1,3 +1,4 @@
+import os
 import base64
 from flask import Flask
 from flask_pymongo import PyMongo
@@ -6,11 +7,8 @@ from garden.services.plant import PlantService
 
 app = Flask(__name__)
 
-app.jinja_env.auto_reload = True
-app.secret_key = 'very-secret-key'
-app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.config['MONGO_CONNECT'] = False
-app.config['MONGO_HOST'] = '0.0.0.0'
+app.config.from_object('config.default')
+app.config.from_object(os.getenv('APP_CONFIG'))
 
 mongo = PyMongo(app)
 
