@@ -8,6 +8,7 @@ setup(
         'Flask',
         'Flask-WTF',
         'Flask_PyMongo',
+        'python-dotenv',
         'uWSGI'
     ],
 )

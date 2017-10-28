@@ -8,8 +8,6 @@ services:
       - .:/usr/src/garden
     expose:
       - "3031"
-    environment:
-      - APP_CONFIG=config.production
     command: uwsgi --yml uwsgi.yml
     tty: true
   nginx:
