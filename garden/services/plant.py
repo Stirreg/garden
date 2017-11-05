@@ -10,17 +10,11 @@ class PlantService():
 
     def save_from_form(self, form):
         """Save a plant using the plant form object and return the created plant object."""
-        data = {}
-
-        if form.cultivars.data:
-            data['cultivars'] = form.cultivars.data.split(', ')
-
-        if form.image.data:
-            data['image'] = Binary(form.image.data.read())
-
         plant = Plant(
             binomial=form.binomial.data,
-            names=form.names.data.split(', ')
+            names=form.names.data.split(', ') if form.names.data else (),
+            cultivars=form.cultivars.data.split(', ') if form.cultivars.data else (),
+            image=Binary(form.image.data.read()) if form.image.data else None
         )
 
         self.plant_repository.save(plant)
