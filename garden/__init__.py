@@ -19,6 +19,7 @@ load_dotenv(os.path.join(project_root, '.env'))
 app.config.from_object('config.default')
 app.config.from_object(config[os.getenv('ENV')])
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['MONGO_HOST'] = os.getenv('MONGO_HOST')
 
 mongo = PyMongo(app)
 
