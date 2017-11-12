@@ -18,7 +18,8 @@ def plant_page(binomial):
     form = PlantForm()
 
     if request.method == 'POST' and form.validate():
-        plant = plant_service.save_from_form(form)
+        plant = service.create_plant_from_form(form)
+        plant_service.save_from_form(form)
         return redirect(url_for('home_page') + '#' + plant.binomial)
 
     plant = plant_service.get_one_by_binomial(binomial)

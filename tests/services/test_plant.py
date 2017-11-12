@@ -15,22 +15,10 @@ class PlantTests(unittest.TestCase):
             image=None
         )
 
-    def test_save_from_form(self):
-        plant_form_mock = Mock()
-        plant_form_mock.binomial.data = 'bla'
-        plant_form_mock.names.data = 'bla, bla'
-        plant_form_mock.cultivars.data = 'bla, bla, bla'
-        plant_form_mock.image.data = None
-
+    def test_save_plant(self):
         plant_service = PlantService(self.plant_repository_mock)
 
-        plant = plant_service.save_from_form(plant_form_mock)
-
-        self.assertIsInstance(plant, Plant)
-        self.assertEqual(plant.binomial, 'bla')
-        self.assertEqual(plant.names, ['bla', 'bla'])
-        self.assertEqual(plant.cultivars, ['bla', 'bla', 'bla'])
-        self.assertEqual(plant.image, None)
+        plant = plant_service.save_plant(self.plant_mock)
 
         self.plant_repository_mock.save.assert_called_once()
 
@@ -60,3 +48,21 @@ class PlantTests(unittest.TestCase):
 
         self.assertEqual(plant_service.get_all(), plants_mock)
         self.plant_repository_mock.get_all.assert_called_once()
+
+    def test_create_plant_from_form(self):
+        plant_form_mock = Mock()
+        plant_form_mock.binomial.data = 'bla'
+        plant_form_mock.names.data = 'bla, bla'
+        plant_form_mock.cultivars.data = 'bla, bla, bla'
+        plant_form_mock.image.data = None
+
+        plant_service = PlantService(self.plant_repository_mock)
+
+        plant = plant_service.create_plant_from_form(plant_form_mock)
+
+        self.assertIsInstance(plant, Plant)
+        self.assertEqual(plant.binomial, 'bla')
+        self.assertEqual(plant.names, ['bla', 'bla'])
+        self.assertEqual(plant.cultivars, ['bla', 'bla', 'bla'])
+        self.assertEqual(plant.image, None)
+
