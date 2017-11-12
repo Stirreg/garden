@@ -20,22 +20,22 @@ class PlantTests(unittest.TestCase):
 
         plant = plant_service.save_plant(self.plant_mock)
 
-        self.plant_repository_mock.save.assert_called_once()
+        self.plant_repository_mock.save.assert_called_once_with(self.plant_mock)
 
     def test_get_one_by_binomial(self):
         self.plant_repository_mock.get_one_by_binomial.return_value = self.plant_mock
 
         plant_service = PlantService(self.plant_repository_mock)
 
-        self.assertEqual(plant_service.get_one_by_binomial('bla'), self.plant_mock)
-        self.plant_repository_mock.get_one_by_binomial.assert_called_once()
+        self.assertEqual(plant_service.get_one_by_binomial(self.plant_mock.binomial), self.plant_mock)
+        self.plant_repository_mock.get_one_by_binomial.assert_called_once_with(self.plant_mock.binomial)
 
     def test_delete_one_by_binomial(self):
         plant_service = PlantService(self.plant_repository_mock)
 
-        plant_service.delete_one_by_binomial('bla')
+        plant_service.delete_one_by_binomial(self.plant_mock.binomial)
 
-        self.plant_repository_mock.delete_one_by_binomial.assert_called_once()
+        self.plant_repository_mock.delete_one_by_binomial.assert_called_once_with(self.plant_mock.binomial)
 
     def test_get_all(self):
         plants_mock = [
