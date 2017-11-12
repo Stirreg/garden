@@ -18,8 +18,8 @@ def plant_page(binomial):
     form = PlantForm()
 
     if request.method == 'POST' and form.validate():
-        plant = service.create_plant_from_form(form)
-        plant_service.save_from_form(form)
+        plant = plant_service.create_plant_from_form(form)
+        plant_service.save_plant(plant)
         return redirect(url_for('home_page') + '#' + plant.binomial)
 
     plant = plant_service.get_one_by_binomial(binomial)
@@ -35,7 +35,8 @@ def create_plant_page():
     '''Create plant page method'''
     form = PlantForm()
     if request.method == 'POST' and form.validate():
-        plant = plant_service.save_from_form(form)
+        plant = plant_service.create_plant_from_form(form)
+        plant_service.save_plant(plant)
         return redirect(url_for('home_page') + '#' + plant.binomial)
 
     return render_template('plant.html', form=form)
