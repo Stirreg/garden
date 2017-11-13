@@ -2,4 +2,19 @@
 {% block body %}
 <a class="button" href="{{ url_for('home_page') }}">Back</a>
 <h1 class="h">{{ plant.names[0] }}</h1>
+{% if plant.image %}
+<img src="data:image/jpg;base64,{{ plant.image|b64encode }}">
+{% endif %}
+<ul>
+    <li>{{ plant.binomial }}</li>
+    {% if plant.names %}
+    <li>Namen: {{ plant.names|join(', ') }}</li>
+    {% endif %}
+    {% if plant.cultivars %}
+    <li>Cultivars: {{ plant.cultivars|join(', ') }}</li>
+    {% endif %}
+</ul>
+<a class="button button--large" href="{{ url_for('edit_plant_page', binomial=plant.binomial) }}">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+</a>
 {% endblock %}
