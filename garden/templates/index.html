@@ -19,6 +19,9 @@
                 <li>Cultivars: {{ plant.cultivars|join(', ') }}</li>
                 {% endif %}
             </ul>
+            <a class="button button--large" href="{{ url_for('edit_plant_page', binomial=plant.binomial) }}">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
         </div>
         {% endfor %}
     </div>

@@ -12,9 +12,19 @@ def home_page():
     return render_template('index.html', flora=flora)
 
 
-@app.route('/plant/<binomial>', methods=('GET', 'POST', 'DELETE'))
+@app.route('/plant/<binomial>')
 def plant_page(binomial):
-    '''Read and update plant page method.'''
+    '''Plant detail method.'''
+    plant = plant_service.get_one_by_binomial(binomial)
+
+    if not plant:
+        abort(404)
+
+    return render_template('plant.html', plant=plant)
+
+@app.route('/plant/edit/<binomial>', methods=('GET', 'POST', 'DELETE'))
+def edit_plant_page(binomial):
+    '''Edit plant page method.'''
     form = PlantForm()
 
     if request.method == 'POST' and form.validate():
@@ -27,7 +37,7 @@ def plant_page(binomial):
     if not plant:
         abort(404)
 
-    return render_template('plant.html', plant=plant, form=form)
+    return render_template('edit_plant.html', plant=plant, form=form)
 
 
 @app.route('/plant', methods=('GET', 'POST'))

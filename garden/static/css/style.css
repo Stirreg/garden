@@ -14,6 +14,10 @@ body {
     color: #333;
 }
 
+a {
+    color: #333;
+}
+
 .h {
     font-family: 'Zilla Slab', serif;
     font-weight: normal;
@@ -40,7 +44,6 @@ body {
 }
 
 .flex__item a {
-    color: #333;
     text-decoration: none;
 }
 
@@ -69,4 +72,31 @@ body {
 .form__input {
     display: block;
     width: 100%;
+}
+
+.button {
+    border-radius: 3px;
+    display: inline-block;
+    padding: 0.4em 0.6em;
+    line-height: 1;
+    font-size: 1em;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #03323F;
+    color: #FFF;
+}
+
+.flex__item--clickable:hover .button {
+    background-color: #FFF;
+    color: #333;
+}
+
+.button:hover,
+.flex__item--clickable:hover .button:hover {
+    background-color: #E5E5E5;
+    color: #333;
+}
+
+.button--large {
+    font-size: 1.2em;
 }
