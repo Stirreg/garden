@@ -49,7 +49,7 @@ def create_plant_page():
         plant_service.save_plant(plant)
         return redirect(url_for('home_page') + '#' + plant.binomial)
 
-    return render_template('plant.html', form=form)
+    return render_template('edit_plant.html', form=form)
 
 
 @app.route('/plant/delete/<binomial>')
